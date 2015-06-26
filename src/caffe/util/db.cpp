@@ -3,6 +3,11 @@
 #include <sys/stat.h>
 #include <string>
 
+#ifdef _MSC_VER
+#include <direct.h>
+#define mkdir(name,mode) _mkdir(name)
+#endif
+
 namespace caffe { namespace db {
 
 const size_t LMDB_MAP_SIZE = 1099511627776;  // 1 TB

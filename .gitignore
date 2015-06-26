@@ -67,7 +67,10 @@ models/*
 *lmdb
 
 # build, distribute, and bins (+ python proto bindings)
-build
+build/*
+!build/MSVC/
+!build/MSVCmex/
+!build/MSVCpy/
 .build_debug/*
 .build_release/*
 distribute/*

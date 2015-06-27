@@ -16,7 +16,7 @@ if exist ".\3rdparty" (
 	echo found 3rdparty dependencies, all good!
 ) else (
 	echo 3rdparty dependencies not found, downloading...
-	call .\tools\wget_1.11.4_cygwin\wget.exe --no-check-cert https://www.dropbox.com/s/3c53owwtcxwjvdl/3rdparty_caffe_10052015_win64.7z?dl=1 -O 3rdparty_tmp.7z
+	call .\tools\wget_1.11.4_cygwin\wget.exe --no-check-cert https://www.dropbox.com/s/h22ykfa7inofmx0/3rdparty_caffe_27062015_win64.7z?dl=1 -O 3rdparty_tmp.7z
 	call .\tools\7z938-extra\7za.exe x 3rdparty_tmp.7z
 	del 3rdparty_tmp.7z
 )

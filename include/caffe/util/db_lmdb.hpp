@@ -7,6 +7,10 @@
 
 #include "caffe/util/db.hpp"
 
+#ifdef _MSC_VER
+#include <wincaffe_misc.h> 
+#endif
+
 namespace caffe { namespace db {
 
 inline void MDB_CHECK(int mdb_status) {

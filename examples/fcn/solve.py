@@ -34,8 +34,8 @@ def interp_surgery(net, layers):
 base_weights = 'vgg16fc.caffemodel'
 
 # init
-caffe.set_mode_gpu()
-caffe.set_device(0)
+caffe.set_mode_cpu()
+#caffe.set_device(0)
 
 solver = caffe.SGDSolver('solver.prototxt')
 

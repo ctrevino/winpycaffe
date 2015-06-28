@@ -43,7 +43,7 @@ with in_db.begin(write=True) as in_txn:
         # - as np.uint8 {0, ..., 255}
         im = np.array(Image.open(in_)) # or load whatever ndarray you need
         # convert to one dimensional ground truth labels
-        tmp = np.zeros(im[:,:,0:1].shape)
+        tmp = np.uint8(np.zeros(im[:,:,0:1].shape))
         for i in range(0,len(label_colors)):
             tmp[:,:,0] = tmp[:,:,0] + i*np.prod(np.equal(im,label_colors[i]),2)
 

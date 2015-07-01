@@ -139,7 +139,7 @@ class Function(object):
                 try:
                     assign_proto(getattr(layer,
                         _param_names[self.type_name] + '_param'), k, v)
-                except AttributeError:
+                except (AttributeError, KeyError):
                     assign_proto(layer, k, v)
 
         layers[self] = layer

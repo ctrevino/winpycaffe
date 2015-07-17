@@ -1,3 +1,12 @@
+if exist ".\3rdparty" (
+	echo found 3rdparty dependencies, all good!
+) else (
+	echo 3rdparty dependencies not found, downloading...
+	call .\tools\wget_1.11.4_cygwin\wget.exe --no-check-cert https://www.dropbox.com/s/av89hy17afnwfel/3rdparty_caffe_17072015_win64.7z?dl=1 -O 3rdparty_tmp.7z
+	call .\tools\7z938-extra\7za.exe x 3rdparty_tmp.7z
+	del 3rdparty_tmp.7z
+)
+
 if exist "./src/caffe/proto/caffe.pb.h" (
     echo caffe.pb.h remains the same as before
 ) else (
@@ -10,13 +19,4 @@ if exist "./src/caffe/proto/*.py" (
 ) else (
     echo caffe python proto definitions are being generated
     "./tools/protoc" -I="./src/caffe/proto" --python_out="./src/caffe/proto" "./src/caffe/proto/caffe.proto"
-)
-
-if exist ".\3rdparty" (
-	echo found 3rdparty dependencies, all good!
-) else (
-	echo 3rdparty dependencies not found, downloading...
-	call .\tools\wget_1.11.4_cygwin\wget.exe --no-check-cert https://www.dropbox.com/s/h22ykfa7inofmx0/3rdparty_caffe_27062015_win64.7z?dl=1 -O 3rdparty_tmp.7z
-	call .\tools\7z938-extra\7za.exe x 3rdparty_tmp.7z
-	del 3rdparty_tmp.7z
 )

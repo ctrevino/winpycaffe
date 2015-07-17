@@ -18,8 +18,9 @@ if exist "..\..\examples\fcn\CamSeq01" (
     echo found CamSeq01 dataset
 ) else ( 
     echo CamSeq01 dataset not found, downloading...
-call ..\..\tools\wget_1.11.4_cygwin\wget.exe http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamSeq01/CamSeq01.zip -O ..\..\examples\fcn\CamSeq01.zip
+::call ..\..\tools\wget_1.11.4_cygwin\wget.exe http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamSeq01/CamSeq01.zip -O ..\..\examples\fcn\CamSeq01.zip
+call ..\..\tools\wget_1.11.4_cygwin\wget.exe https://www.dropbox.com/s/q23nr1me4g5xfzo/CamSeq01.7z?dl=1 -O ..\..\examples\fcn\CamSeq01.7z
 	mkdir ..\..\examples\fcn\CamSeq01
-	call ..\..\tools\7z938-extra\7za.exe x -o ..\..\examples\fcn\CamSeq01\ ..\..\examples\fcn\CamSeq01.zip 
-	del ..\..\examples\fcn\CamSeq01.zip
+	call ..\..\tools\7z938-extra\7za.exe x -o ..\..\examples\fcn\CamSeq01\ ..\..\examples\fcn\CamSeq01.7z
+	del ..\..\examples\fcn\CamSeq01.7z
 )

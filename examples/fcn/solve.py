@@ -1,4 +1,8 @@
 from __future__ import division
+
+caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples/fcn
+import sys
+sys.path.insert(0, caffe_root + 'python')
 import caffe
 import numpy as np
 
@@ -31,7 +35,7 @@ def interp_surgery(net, layers):
 # base net -- follow the editing model parameters example to make
 # a fully convolutional VGG16 net.
 # http://nbviewer.ipython.org/github/BVLC/caffe/blob/master/examples/net_surgery.ipynb
-base_weights = 'vgg16fc.caffemodel'
+base_weights = 'fcn-32s-pascalcontext.caffemodel'
 
 # init
 caffe.set_mode_cpu()

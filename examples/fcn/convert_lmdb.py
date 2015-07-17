@@ -13,14 +13,16 @@ f = open('camseq01_list.txt','r')
 inputs = f.read().splitlines()
 f.close()
 
-in_db = lmdb.open('camseq01-lmdb', map_size=int(262144000))
+in_db = lmdb.open('camseq01-lmdb', map_size=int(58720256))
 with in_db.begin(write=True) as in_txn:
     for in_idx, in_ in enumerate(inputs):
         # load image:
         # - as np.uint8 {0, ..., 255}
         # - in BGR (switch from RGB)
         # - in Channel x Height x Width order (switch from H x W x C)
-        im = np.array(Image.open(in_)) # or load whatever ndarray you need
+        im = Image.open(in_) # load image
+        im = im.resize((int(im.size[0]*0.5),int(im.size[1]*0.5)),Image.ANTIALIAS) # downsize for reduced memory usage
+        im = np.array(im) # convert to nparray you need
         im = im[:,:,::-1]
         im = im.transpose((2,0,1))
         im_dat = caffe.io.array_to_datum(im)
@@ -36,12 +38,12 @@ f = open('camseq01_list_gt.txt','r')
 inputs = f.read().splitlines()
 f.close()
 
-in_db = lmdb.open('camseq01_gt-lmdb', map_size=int(94371840))
+in_db = lmdb.open('camseq01_gt-lmdb', map_size=int(20971520))
 with in_db.begin(write=True) as in_txn:
     for in_idx, in_ in enumerate(inputs):
-        # load image:
-        # - as np.uint8 {0, ..., 255}
-        im = np.array(Image.open(in_)) # or load whatever ndarray you need
+        im = Image.open(in_) # load image
+        im = im.resize((int(im.size[0]*0.5),int(im.size[1]*0.5)),Image.ANTIALIAS) # downsize for reduced memory usage
+        im = np.array(im) # convert to nparray you need
         # convert to one dimensional ground truth labels
         tmp = np.uint8(np.zeros(im[:,:,0:1].shape))
         for i in range(0,len(label_colors)):

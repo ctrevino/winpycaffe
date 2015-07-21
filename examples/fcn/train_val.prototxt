@@ -523,10 +523,10 @@ layer {
   }
 }
 layer {
-  name: "score59"
+  name: "score32"
   type: "Convolution"
   bottom: "fc7"
-  top: "score59"
+  top: "score32"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -536,7 +536,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 60
+    num_output: 32
     kernel_size: 1
     engine: CAFFE
   }
@@ -544,13 +544,13 @@ layer {
 layer {
   name: "upscore"
   type: "Deconvolution"
-  bottom: "score59"
+  bottom: "score32"
   top: "upscore"
   param {
     lr_mult: 0
   }
   convolution_param {
-    num_output: 60
+    num_output: 32
     bias_term: false
     kernel_size: 64
     stride: 32

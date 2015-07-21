@@ -2,6 +2,7 @@ from __future__ import division
 
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples/fcn
 import sys
+import os
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 import numpy as np
@@ -36,13 +37,15 @@ def interp_surgery(net, layers):
 # a fully convolutional VGG16 net.
 # http://nbviewer.ipython.org/github/BVLC/caffe/blob/master/examples/net_surgery.ipynb
 #base_weights = 'fcn-32s-pascalcontext.caffemodel'
-base_weights = '../../models/alexnet_fcn/fcn-alexnet-pascal.caffemodel'
+if not os.path.exists('snapshot'):
+    os.mkdir('snapshot')
+base_weights = '../../models/bvlc_alexnet/fcn-alexnet-bvlc.caffemodel'
 
 # init
-caffe.set_mode_cpu()
-#caffe.set_device(0)
+caffe.set_mode_gpu()
+caffe.set_device(0)
 
-solver = caffe.SGDSolver('alexnet_solver.prototxt')
+solver = caffe.SGDSolver('../../models/bvlc_alexnet/fcn-alexnet-bvlc_solver.prototxt')
 
 # do net surgery to set the deconvolution weights for bilinear interpolation
 interp_layers = [k for k in solver.net.params.keys() if 'up' in k]
@@ -55,6 +58,7 @@ solver.net.copy_from(base_weights)
 # 1. take SGD steps
 # 2. score the model by the test net `solver.test_nets[0]`
 # 3. repeat until satisfied
-solver.step(80000)  # SGD by Caffe
+#solver.step(500)  # SGD by Caffe
+solver.solve();
 
 print 'done'

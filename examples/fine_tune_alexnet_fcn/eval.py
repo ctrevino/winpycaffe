@@ -28,7 +28,7 @@ assert isinstance(net, object)
 net.forward()
 out = net.blobs['score'].data[0].argmax(axis=0)
 
-print out
+#print out
 
 plt.subplot(1, 2, 1)
 plt.imshow(im)

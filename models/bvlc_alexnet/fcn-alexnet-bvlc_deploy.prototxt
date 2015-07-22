@@ -261,7 +261,7 @@ layer {
   name: "score-fr-cs"
   type: "Convolution"
   bottom: "fc7-conv"
-  top: "score-fc7-conv"
+  top: "score-fc7"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -274,12 +274,20 @@ layer {
     num_output: 32
     kernel_size: 1
     engine: CAFFE
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
   }
 }
 layer {
   name: "upsample-cs"
   type: "Deconvolution"
-  bottom: "score-fc7-conv"
+  bottom: "score-fc7"
   top: "bigscore"
   param {
     lr_mult: 0

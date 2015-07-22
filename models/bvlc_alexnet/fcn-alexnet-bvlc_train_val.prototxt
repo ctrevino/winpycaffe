@@ -12,7 +12,7 @@ layer {
     mean_value: 122.67892
   }
   data_param {
-    source: "camseq01-lmdb"
+    source: "D:/camvid-lmdb"
     batch_size: 1
     backend: LMDB
   }
@@ -43,7 +43,7 @@ layer {
     phase: TRAIN
   }
   data_param {
-    source: "camseq01_gt-lmdb"
+    source: "D:/camvid-gt-lmdb"
     batch_size: 1
     backend: LMDB
   }
@@ -317,7 +317,7 @@ layer {
   name: "score-fr-cs"
   type: "Convolution"
   bottom: "fc7-conv"
-  top: "score-fc7-conv"
+  top: "score-fc7"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -343,7 +343,7 @@ layer {
 layer {
   name: "upsample-cs"
   type: "Deconvolution"
-  bottom: "score-fc7-conv"
+  bottom: "score-fc7"
   top: "bigscore"
   param {
     lr_mult: 0

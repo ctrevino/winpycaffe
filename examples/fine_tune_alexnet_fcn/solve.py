@@ -47,12 +47,13 @@ caffe.set_device(0)
 
 solver = caffe.SGDSolver('../../models/bvlc_alexnet/fcn-alexnet-bvlc_solver.prototxt')
 
+# copy base weights for fine-tuning
+solver.net.copy_from(base_weights)
+
 # do net surgery to set the deconvolution weights for bilinear interpolation
 interp_layers = [k for k in solver.net.params.keys() if 'up' in k]
 interp_surgery(solver.net, interp_layers)
 
-# copy base weights for fine-tuning
-solver.net.copy_from(base_weights)
 
 # solve straight through -- a better approach is to define a solving loop to
 # 1. take SGD steps

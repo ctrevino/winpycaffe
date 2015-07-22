@@ -9,8 +9,12 @@ import lmdb
 from PIL import Image
 import numpy as np
 
+ridx = np.arange(101)
+np.random.shuffle(ridx)
+
 f = open('camseq01_list.txt','r')
 inputs = f.read().splitlines()
+inputs = [inputs[i] for i in ridx]
 f.close()
 
 in_db = lmdb.open('camseq01-lmdb', map_size=int(58720256))
@@ -36,6 +40,7 @@ label_colors = [(64,128,64),(192,0,128),(0,128,192),(0,128,64),(128,0,0),(64,0,1
 
 f = open('camseq01_list_gt.txt','r')
 inputs = f.read().splitlines()
+inputs = [inputs[i] for i in ridx]
 f.close()
 
 in_db = lmdb.open('camseq01_gt-lmdb', map_size=int(20971520))

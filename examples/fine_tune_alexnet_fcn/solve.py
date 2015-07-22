@@ -59,6 +59,16 @@ solver.net.copy_from(base_weights)
 # 2. score the model by the test net `solver.test_nets[0]`
 # 3. repeat until satisfied
 #solver.step(500)  # SGD by Caffe
-solver.solve();
+#solver.solve();
 
+niter = 10000
+train_loss = np.zeros(niter)
+
+for it in range(niter):
+    solver.step(1)  # SGD by Caffe
+    train_loss[it] = solver.net.blobs['loss'].data
+    if it % 500 ==0:
+        print 'iter %d, finetune_loss=%f' % (it, train_loss[it])
+        solver.net.save('D:/camvid_experiment_01/fcn-alexnet-bvlc_camvid_finetune_iter_' + repr(it) + '.caffemodel')
+        np.save('D:/camvid_experiment_01/loss-alexnet-bvlc_camvid_finetune_iter_' + repr(it) + '.npy',train_loss)
 print 'done'

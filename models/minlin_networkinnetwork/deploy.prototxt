@@ -427,7 +427,7 @@ layer {
 }
 layer {
   bottom: "cccp7"
-  top: "cccp8"
+  top: "cccp8-new"
   name: "cccp8-1024"
   type: "Convolution"
   param {
@@ -439,7 +439,7 @@ layer {
 	decay_mult: 0
   }
   convolution_param {
-    num_output: 1000
+    num_output: 32
     kernel_size: 1
     stride: 1
     weight_filler {
@@ -454,8 +454,8 @@ layer {
   }
 }
 layer {
-  bottom: "cccp8"
-  top: "cccp8"
+  bottom: "cccp8-new"
+  top: "cccp8-new"
   name: "relu12"
   type: "ReLU"
 }
@@ -474,7 +474,7 @@ layer {
 layer {
   name: "upsample"
   type: "Deconvolution"
-  bottom: "cccp8"
+  bottom: "cccp8-new"
   top: "bigscore"
   param {
     lr_mult: 0

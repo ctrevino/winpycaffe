@@ -14,7 +14,7 @@ params = ['loss3/classifier']
 fc_params = {pr: (net.params[pr][0].data, net.params[pr][1].data) for pr in params}
 
 # Load the fully convolutional network to transplant the parameters.
-net_full_conv = caffe.Net('../../models/bvlc_googlenet/fcn-deploy.prototxt', 
+net_full_conv = caffe.Net('../../models/bvlc_googlenet/fcn-deploy_16stride.prototxt', 
                           '../../models/bvlc_googlenet/bvlc_googlenet.caffemodel',
                           caffe.TEST)
 params_full_conv = ['loss3/classifier-conv']
@@ -25,4 +25,4 @@ for pr, pr_conv in zip(params, params_full_conv):
     conv_params[pr_conv][0].flat = fc_params[pr][0].flat  # flat unrolls the arrays
     conv_params[pr_conv][1][...] = fc_params[pr][1]
 
-net_full_conv.save('../../models/bvlc_googlenet/fcn-bvlc_googlenet.caffemodel')
+net_full_conv.save('../../models/bvlc_googlenet/fcn-bvlc_googlenet16.caffemodel')

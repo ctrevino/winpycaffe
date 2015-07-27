@@ -39,7 +39,7 @@ def interp_surgery(net, layers):
 #base_weights = 'fcn-32s-pascalcontext.caffemodel'
 if not os.path.exists('snapshot'):
     os.mkdir('snapshot')
-base_weights = '../../models/bvlc_googlenet/fcn-bvlc_googlenet.caffemodel'
+base_weights = '../../models/bvlc_googlenet/fcn-bvlc_googlenet16.caffemodel'
 
 # init
 caffe.set_mode_gpu()
@@ -70,6 +70,6 @@ for it in range(niter):
     train_loss[it] = solver.net.blobs['loss'].data
     if it % 500 ==0:
         print 'iter %d, finetune_loss=%f' % (it, train_loss[it])
-        solver.net.save('D:/camvid_experiment_02/fcn-alexnet-bvlc_camvid_finetune_iter_' + repr(it) + '.caffemodel')
-        np.save('D:/camvid_experiment_02/loss-alexnet-bvlc_camvid_finetune_iter_' + repr(it) + '.npy',train_loss)
+        solver.net.save('D:/camvid_experiment_03/fcn-googlenet16-bvlc_camvid_finetune_iter_' + repr(it) + '.caffemodel')
+        np.save('D:/camvid_experiment_03/loss-googlenet16-bvlc_camvid_finetune_iter_' + repr(it) + '.npy',train_loss)
 print 'done'

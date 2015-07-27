@@ -2162,10 +2162,10 @@ layer {
 #  top: "prob"
 #}
 layer {
-  name: "score-32"
+  name: "score-11"
   type: "Convolution"
   bottom: "loss3/classifier"
-  top: "score-32"
+  top: "score-11"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -2175,7 +2175,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 32
+    num_output: 11
     kernel_size: 1
     engine: CAFFE
     weight_filler {
@@ -2191,7 +2191,7 @@ layer {
 layer {
   name: "upsample"
   type: "Deconvolution"
-  bottom: "score-32"
+  bottom: "score-11"
   top: "bigscore-new"
   param {
     lr_mult: 1
@@ -2200,7 +2200,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 32
+    num_output: 11
     kernel_size: 3
 #    group: 32
     stride: 2
@@ -2210,10 +2210,10 @@ layer {
 # add new 16 stride path starting after pool3
 
 layer {
-  name: "score-32-pool3"
+  name: "score-11-pool3"
   type: "Convolution"
   bottom: "pool3/3x3_s2"
-  top: "score-32-pool3"
+  top: "score-11-pool3"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -2223,7 +2223,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 32
+    num_output: 11
     kernel_size: 1
     engine: CAFFE
     weight_filler {
@@ -2240,16 +2240,16 @@ layer {
 layer {
 	type: 'Crop'
 	name: 'crop'
-	bottom: 'score-32-pool3'
+	bottom: 'score-11-pool3'
 	bottom: 'bigscore-new'
-	top: 'score-32-pool3_cropped'
+	top: 'score-11-pool3_cropped'
 }
 
 layer {
   name: "fuse"
   type: "Eltwise"
   bottom: "bigscore-new"
-  bottom: "score-32-pool3_cropped"
+  bottom: "score-11-pool3_cropped"
   top: "score-fused"
   eltwise_param {
     operation: SUM
@@ -2265,7 +2265,7 @@ layer {
     lr_mult: 1
   }
   convolution_param {
-    num_output: 32
+    num_output: 11
     bias_term: false
     kernel_size: 65
     stride: 16

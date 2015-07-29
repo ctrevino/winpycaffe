@@ -1,9 +1,66 @@
 name: "FCN_GoogleNet"
-input: "data"
-input_dim: 10
-input_dim: 3
-input_dim: 224
-input_dim: 224
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    mean_value: 104.00699
+    mean_value: 116.66877
+    mean_value: 122.67892
+  }
+  data_param {
+    source: "D:/camvid_train-lmdb"
+    batch_size: 3
+    backend: LMDB
+  }
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    mean_value: 104.00699
+    mean_value: 116.66877
+    mean_value: 122.67892
+  }
+  data_param {
+    source: "D:/camvid_test-lmdb"
+    batch_size: 3
+    backend: LMDB
+  }
+}
+layer {
+  name: "label"
+  type: "Data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  data_param {
+    source: "D:/camvid_train-gt-lmdb"
+    batch_size: 3
+    backend: LMDB
+  }
+}
+layer {
+  name: "label"
+  type: "Data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  data_param {
+    source: "D:/camvid_test-gt-lmdb"
+    batch_size: 3
+    backend: LMDB
+  }
+}
 layer {
   name: "conv1/7x7_s2"
   type: "Convolution"
@@ -2212,6 +2269,7 @@ layer {
 layer {
   name: "score-11-pool3"
   type: "Convolution"
+#  bottom: "inception_4e/output"
   bottom: "pool3/3x3_s2"
   top: "score-11-pool3"
   param {
@@ -2267,9 +2325,22 @@ layer {
   convolution_param {
     num_output: 11
     bias_term: false
-    kernel_size: 65
+    kernel_size: 29
     stride: 16
   }
 }
 
 layer { type: 'Crop' name: 'crop' bottom: 'bigscore2' bottom: 'data' top: 'score' }
+
+layer {
+  name: "prob"
+  type: "SoftmaxWithLoss"
+  bottom: "score"
+  bottom: "label"
+  top: "loss"
+  loss_param {
+    ignore_label: 255
+    normalize: true
+    # normalize: false
+  }
+}

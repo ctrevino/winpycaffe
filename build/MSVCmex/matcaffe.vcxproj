@@ -205,8 +205,8 @@ cd %origin_dir%</Command>
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>../../3rdparty/include;../../3rdparty/include/cuda;../../3rdparty/include/eigen3/Eigen;../../src;../../include;C:\Program Files\MATLAB\R2013a\extern\include;$(CudaToolkitIncludeDir);../../3rdparty/include/pthread;../../3rdparty/include/hdf5-1.8.14-win64-vs2013-shared;../../3rdparty/include/openblas;../../3rdparty/include/liblmdb</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../3rdparty/include;../../3rdparty/include/cuda;../../3rdparty/include/eigen3/Eigen;../../src;../../include;C:\Program Files\MATLAB\R2015a\extern\include;$(CudaToolkitIncludeDir);../../3rdparty/include/pthread;../../3rdparty/include/hdf5-1.8.14-win64-vs2013-shared;../../3rdparty/include/openblas;../../3rdparty/include/liblmdb</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;NDEBUG;_CONSOLE;USE_CUDNN=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
@@ -220,8 +220,8 @@ cd %origin_dir%</Command>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX64</TargetMachine>
-      <AdditionalLibraryDirectories>../../3rdparty/lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.0\lib\x64;C:\Program Files\MATLAB\R2013a\extern\lib\win64\microsoft</AdditionalLibraryDirectories>
-      <AdditionalDependencies>getopt.lib;liblmdb.lib;gflags.lib;hdf5.lib;hdf5_cpp.lib;hdf5_f90cstub.lib;hdf5_fortran.lib;hdf5_hl.lib;hdf5_hl_cpp.lib;hdf5_hl_f90cstub.lib;hdf5_hl_fortran.lib;hdf5_tools.lib;opencv_objdetect248.lib;opencv_highgui248.lib;opencv_imgproc248.lib;opencv_legacy248.lib;opencv_core248.lib;libpthread.lib;libboost_date_time-vc120-mt-s-1_55.lib;shlwapi.lib;leveldb.lib;libopenblas.lib;cublas.lib;cublas_device.lib;curand.lib;cudart.lib;cuda.lib;libprotobuf.lib;libglog.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libmat.lib;libmex.lib;libmx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../3rdparty/lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.0\lib\x64;C:\Program Files\MATLAB\R2015a\extern\lib\win64\microsoft</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libwincaffe_misc.lib;liblmdb.lib;gflags.lib;hdf5.lib;hdf5_cpp.lib;hdf5_f90cstub.lib;hdf5_fortran.lib;hdf5_hl.lib;hdf5_hl_cpp.lib;hdf5_hl_f90cstub.lib;hdf5_hl_fortran.lib;hdf5_tools.lib;opencv_objdetect248.lib;opencv_highgui248.lib;opencv_imgproc248.lib;opencv_legacy248.lib;opencv_core248.lib;libpthread.lib;libboost_date_time-vc120-mt-s-1_55.lib;shlwapi.lib;leveldb.lib;libopenblas.lib;cudnn.lib;cudnn64_65.lib;cublas.lib;cublas_device.lib;curand.lib;cudart.lib;cuda.lib;libprotobuf.lib;libglog.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libmat.lib;libmex.lib;libmx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/export:mexFunction %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
@@ -246,7 +246,7 @@ cd %origin_dir%</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\matlab\caffe\matcaffe.cpp" />
+    <ClCompile Include="..\..\matlab\+caffe\private\caffe_.cpp" />
     <ClCompile Include="..\..\src\caffe\blob.cpp" />
     <ClCompile Include="..\..\src\caffe\common.cpp" />
     <ClCompile Include="..\..\src\caffe\data_transformer.cpp" />
@@ -274,6 +274,7 @@ cd %origin_dir%</Command>
     <ClCompile Include="..\..\src\caffe\layers\eltwise_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\euclidean_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\exp_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\filter_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\flatten_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\hdf5_data_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\hdf5_output_layer.cpp" />
@@ -282,6 +283,7 @@ cd %origin_dir%</Command>
     <ClCompile Include="..\..\src\caffe\layers\image_data_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\infogain_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\inner_product_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\log_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\memory_data_layer.cpp" />
@@ -290,7 +292,10 @@ cd %origin_dir%</Command>
     <ClCompile Include="..\..\src\caffe\layers\neuron_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\pooling_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\power_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\prelu_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\reduction_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\relu_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\reshape_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\sigmoid_cross_entropy_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\sigmoid_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\silence_layer.cpp" />
@@ -298,6 +303,7 @@ cd %origin_dir%</Command>
     <ClCompile Include="..\..\src\caffe\layers\softmax_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\softmax_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\split_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\spp_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\tanh_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\threshold_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\window_data_layer.cpp" />
@@ -307,7 +313,11 @@ cd %origin_dir%</Command>
     <ClCompile Include="..\..\src\caffe\solver.cpp" />
     <ClCompile Include="..\..\src\caffe\syncedmem.cpp" />
     <ClCompile Include="..\..\src\caffe\util\benchmark.cpp" />
+    <ClCompile Include="..\..\src\caffe\util\cudnn.cpp" />
     <ClCompile Include="..\..\src\caffe\util\db.cpp" />
+    <ClCompile Include="..\..\src\caffe\util\db_leveldb.cpp" />
+    <ClCompile Include="..\..\src\caffe\util\db_lmdb.cpp" />
+    <ClCompile Include="..\..\src\caffe\util\hdf5.cpp" />
     <ClCompile Include="..\..\src\caffe\util\im2col.cpp" />
     <ClCompile Include="..\..\src\caffe\util\insert_splits.cpp" />
     <ClCompile Include="..\..\src\caffe\util\io.cpp" />
@@ -347,10 +357,12 @@ cd %origin_dir%</Command>
     <CudaCompile Include="..\..\src\caffe\layers\eltwise_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\euclidean_loss_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\exp_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\filter_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\hdf5_data_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\hdf5_output_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\im2col_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\inner_product_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\log_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\lrn_layer.cu">
       <FileType>CudaCompile</FileType>
       <TargetMachinePlatform Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">64</TargetMachinePlatform>
@@ -361,6 +373,8 @@ cd %origin_dir%</Command>
       <TargetMachinePlatform Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">64</TargetMachinePlatform>
     </CudaCompile>
     <CudaCompile Include="..\..\src\caffe\layers\power_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\prelu_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\reduction_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\relu_layer.cu">
       <FileType>CudaCompile</FileType>
       <TargetMachinePlatform Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">64</TargetMachinePlatform>

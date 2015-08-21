@@ -58,8 +58,7 @@ static void apply_buffers(const vector<Blob<Dtype>*>& blobs,
     }
     ptr += size;
   }
-  // total_size is at least one byte
-  CHECK_EQ(total_size, (ptr == buffer ? 1 : ptr - buffer));
+  CHECK_EQ(total_size, ptr - buffer);
 }
 
 // Buffer size necessary to store given blobs
@@ -68,9 +67,7 @@ static size_t total_size(const vector<Blob<Dtype>*>& params) {
   size_t size = 0;
   for (int i = 0; i < params.size(); ++i)
     size += params[i]->count();
-  // Size have at least one byte, otherwise cudaMalloc fails if net has no
-  // learnable parameters.
-  return (size > 0) ? size : 1;
+  return size;
 }
 
 template<typename Dtype>
